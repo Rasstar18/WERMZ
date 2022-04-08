@@ -19,9 +19,14 @@ if(!empty($_POST)){
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0){
-        if ($result->num_rows == $_SESSION['admin']){
+        $userdata = $result->fetch_assoc();
+        if ($userdata->$admin == 1){
             HEADER("Location:adminsidan.php");
             exit; 
+        }
+        else{
+            HEADER("Location:user.php");
+            exit;
         }
     }
     else{
