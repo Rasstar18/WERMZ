@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 if(!empty($_POST)){
     $varden = $_POST;
 
@@ -20,7 +18,7 @@ if(!empty($_POST)){
 
     if ($result->num_rows > 0){
         $userdata = $result->fetch_assoc();
-        if ($userdata->$admin == 1){
+        if ($userdata["admin"] == 1){
             HEADER("Location:adminsidan.php");
             exit; 
         }
@@ -30,7 +28,7 @@ if(!empty($_POST)){
         }
     }
     else{
-        echo "0 results";
+        echo "Fel användare/lösenord!";
     }
     $conn->close();
 }
