@@ -9,7 +9,11 @@
 </head>
 <body>
     <form method="POST">
-        
+        <input type="text" id="id" value="ID">
+        <input type="text" id="kategori" value="Kategori">
+        <?php
+
+        ?>
     </form>
 </body>
 </html>
