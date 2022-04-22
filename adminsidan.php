@@ -11,8 +11,16 @@
     <form method="POST">
         <input type="text" id="id" value="ID">
         <input type="text" id="kategori" value="Kategori">
+        <input type="submit" id="verkstall" value="Execute order 67">
         <?php
+        if(!empty($_POST)){
+            require_once("inlogg.php");
+            $worth = $_POST;
+            $ID = $worth['id'];
+            $category = $worth['kategori'];
 
+            $sql = "SELECT * FROM anvandare WHERE id = $ID"
+        }
         ?>
     </form>
 </body>
