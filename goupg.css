@@ -4,13 +4,13 @@
 }
 
 #container{
-    background-color:darkgrey;
+    background-color:#686868;
     width:100vw;
     height:100vh;
    
 }
 #main{
-    background-color:grey;
+    background-color:#bfbfbf;
     width:70vw;
     height:100vh;
     margin-left:15vw;
