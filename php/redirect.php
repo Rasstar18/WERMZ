@@ -3,14 +3,14 @@ session_start();
 require_once('db.php');
 
 // Tar emot namn från inlogg
-if(isset($_GET['name'])) {
-    $user = $_GET['name'];
+if(isset($_SESSION['go_db_name'])) {
+    $user = $_SESSION['go_db_name'];
 } else {
     $user = "";
 }
 // Tar emot lösenord från inlogg
-if(isset($_GET['pass'])) {
-    $pass = $_GET['pass'];
+if(isset($_SESSION['go_db_pass'])) {
+    $pass = $_SESSIOn['go_db_pass'];
 } else {
     $pass = "";
 }
@@ -22,11 +22,11 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0){
     $userdata = $result->fetch_assoc();
 
-    // Om användare är admin returnera "ADMIN"
+    // Om användare är admin redirecta till adminsidan.php
     if ($userdata["admin"] == 1){
         HEADER("Location:adminsidan.php");
     }
-    // Om användare inte är admin returnera "USER"
+    // Om användare inte är admin redirecta till user.php
     else{
         HEADER("Location:user.php");
     }
