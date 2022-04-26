@@ -1,0 +1,20 @@
+*{
+    padding:0;
+    margin:0;
+}
+
+#container{
+    background-color:darkgrey;
+    width:100vw;
+    height:100vh;
+   
+}
+#main{
+    background-color:grey;
+    width:70vw;
+    height:100vh;
+    margin-left:15vw;
+}
+#information{
+    margin-left:1vw;
+}
