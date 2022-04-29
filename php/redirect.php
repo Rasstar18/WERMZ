@@ -8,9 +8,10 @@ if(isset($_SESSION['go_db_name'])) {
 } else {
     $user = "";
 }
+
 // Tar emot lösenord från inlogg
 if(isset($_SESSION['go_db_pass'])) {
-    $pass = $_SESSIOn['go_db_pass'];
+    $pass = $_SESSION['go_db_pass'];
 } else {
     $pass = "";
 }
@@ -24,15 +25,15 @@ if ($result->num_rows > 0){
 
     // Om användare är admin redirecta till adminsidan.php
     if ($userdata["admin"] == 1){
-        HEADER("Location:adminsidan.php");
+        HEADER("Location:../sidor/adminsidan.php");
     }
     // Om användare inte är admin redirecta till user.php
     else{
-        HEADER("Location:user.php");
+        HEADER("Location:../sidor/user.php");
     }
 }
 // Inloggningsuppgifter är felaktiga
 else{
-    HEADER("Location:inlogg.php");
+    HEADER("Location:../sidor/inlogg.php");
 }
 ?>
