@@ -1,36 +1,15 @@
 <?php
 if(!empty($_POST)){
+    session_start();
     $varden = $_POST;
 
     $name = $varden['namn'];
     $pass = $varden['losenord'];  
 
-    $servername="localhost";
-    $username="root";
-    $password="";
-    $dbname="go_db";
+    $_SESSION['go_db_name'] = $name;
+    $_SESSION['go_db_pass'] = $pass;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-
-    $sql="SELECT * FROM anvandare WHERE namn = '$name' AND losenord = '$pass'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0){
-        $userdata = $result->fetch_assoc();
-        if ($userdata["admin"] == 1){
-            HEADER("Location:adminsidan.php");
-            exit; 
-        }
-        else{
-            HEADER("Location:user.php");
-            exit;
-        }
-    }
-    else{
-        echo "Fel användare/lösenord!";
-    }
-    $conn->close();
+    HEADER("Location:../php/redirect.php");
 }
 ?>
 <!DOCTYPE html>
