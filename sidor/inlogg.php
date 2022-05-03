@@ -1,4 +1,5 @@
 <?php
+session_start();
 if(!empty($_POST)){
     $varden = $_POST;
 
@@ -19,6 +20,7 @@ if(!empty($_POST)){
     if ($result->num_rows > 0){
         $userdata = $result->fetch_assoc();
         if ($userdata["admin"] == 1){
+            $_SESSION['namn'] = $userdata['namn'];
             HEADER("Location:adminsidan.php");
             exit; 
         }
