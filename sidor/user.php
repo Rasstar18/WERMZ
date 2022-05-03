@@ -1,15 +1,6 @@
 <?php
-    $servername = "localhost";
-
-   //$username = "ntigskov_go4";
-   //$password = "$9lZQh!GYPFn";
-
-    $username = "zacke";
-    $password = "zackespooper";
-    $db = "go_db";
-
-    //koppla till db
-    $conn = new mysqli($servername, $username, $password, $db);
+    session_start();
+    require_once ("../php/db.php");
 ?>
 
 <!DOCTYPE html>
@@ -47,19 +38,18 @@
         ?>
       
         <?php
-        for ($i=0;$i<1;$i++){
-        ?>
-        <form id="rating">
-          <input type="radio" id="spelbarhet1" name="spelbarhet" value=1>
-          <label for="spelbarhet">1</label><br>
-          <input type="radio" id="spelbarhet2" name="spelbarhet" value=2>
-          <label for="spelbarhet">2</label><br>
-          <input type="radio" id="spelbarhet3" name="spelbarhet" value=3>
-          <label for="spelbarhet">3</label><br>
-          <input type="radio" id="spelbarhet4" name="spelbarhet" value=4>
-          <label for="spelbarhet">4</label><br>
-          <input type="radio" id="spelbarhet5" name="spelbarhet" value=5>
-          <label for="spelbarhet">5</label><br>
+          $knapp = 1;
+          for ($i=0;$i<1;$i++){
+          ?>
+          <?php 
+            for ($i=0;$i<5;$i++){
+              ?>
+              <form id="rating">
+                <input type="radio" id="spelbarhet1" name="spelbarhet" value=1>
+                <label for="spelbarhet"><?php echo $knapp++ ?></label><br>
+              <?php
+            }
+          ?>
         </form>
         <?php
         }
