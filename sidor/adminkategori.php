@@ -63,8 +63,14 @@ else{
             <div id="array">
                 <?php
                     $kategorier = ["action", "puzzle", "fps", "tps", "strategy", "rts", "rpg"]; 
-                    
-                    echo '<pre>'; print_r($kategorier); echo '</pre>';
+                    foreach($kategorier as $rad){
+                        
+                        echo "<div class = 'category'>";
+                        echo "<div class = 'categorybox'>".$rad."</div>"; 
+                        echo "<div class = 'categoryremove'>Ta bort</div>"; 
+                        echo "<div class = 'categoryedit'>Redigera</div><br>"; 
+                        echo "</div>";
+                    }
                 ?>
             </div>   
         </div>
