@@ -1,7 +1,6 @@
 <?php
 require_once("../php/db.php");
 session_start();
-
 // Tar emot namn från inlogg
 if(isset($_SESSION['go_db_name'])) {
     $user = $_SESSION['go_db_name'];
@@ -32,6 +31,7 @@ if ($result->num_rows > 0){
 else{
     HEADER("Location:../sidor/inlogg.php");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,9 +44,6 @@ else{
 </head>
 <body>
     <div id="container">
-      <div id="kategori">
-                <a href="adminkategori.php">Kategori</a> 
-            </div>
             <div id="spel">
                 <a href="adminspel.php">Spel</a> 
             </div>
@@ -58,8 +55,18 @@ else{
             </div>
             <div id="resultat">
                 <a href="adminresultat.php">Resultat</a>
+            </div>
+            <div id="admin">
+                <a href="adminsidan.php">Tillbaka till huvudsidan</a>
             </div>   
         <div id="main">
+            <div id="array">
+                <?php
+                    $kategorier = ["action", "puzzle", "fps", "tps", "strategy", "rts", "rpg"]; 
+                    
+                    echo '<pre>'; print_r($kategorier); echo '</pre>';
+                ?>
+            </div>   
         </div>
     </div>
 </body>
