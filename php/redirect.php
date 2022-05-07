@@ -32,7 +32,7 @@ if ($result->num_rows > 0){
         HEADER("Location:../sidor/user.php");
     }
 }
-// Inloggningsuppgifter är felaktiga
+// Om inloggningsuppgifter är felaktiga redirecta till inlogg.php
 else{
     HEADER("Location:../sidor/inlogg.php");
 }

@@ -1,23 +1,8 @@
 <?php
 require_once('db.php');
 
-//Hämtar 'type'-värdet (vilken databas som ska ändras)
-if(isset($_GET['type'])) {
-    $type = $_GET['type'];
-}
-else {
-    echo "ERROR: 'type' är inte satt";
-    die();
-}
-
-//Hämtar 'id'-värdet (vilket objekt i databasen som ska tas bort)
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
-}
-else {
-    echo "ERROR: 'id' är inte satt";
-    die();
-}
+$type = $_GET['type']; // Databasen som skall ändras
+$id = $_GET['id']; // Objektet som ska tas bort
 
 // Bestämmer vilken databas som skall ändras
 if($type == "a") {
@@ -31,16 +16,18 @@ if($type == "a") {
     die();
 }
 
-//DELETE FROM $table WHERE some_column = some_value
-$sql = "DELETE FROM $table WHERE id = $id";
-$result = mysqli_query($conn,$sql);
+// Tar bort från databasen
+$sql = "DELETE FROM $table WHERE id = ?";
 
-if ($conn->query($sql) === TRUE) {
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+
+if ($stmt->get_result() === TRUE) {
     echo "Objektet togs bort";
 } else {
-    echo "ERROR: Kunde inte ta bort objektet - " . $conn->error;
+    echo "ERROR: Kunde inte ta bort objektet";
 }
   
 $conn->close();
-
 ?>
