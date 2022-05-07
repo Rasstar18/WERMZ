@@ -1,25 +1,10 @@
 <?php
 require_once('db.php');
 
-//Hämtar 'type'-värdet (vilken databas som ska ändras)
-if(isset($_GET['type'])) {
-    $type = $_GET['type'];
-}
-else {
-    echo "ERROR: 'type' är inte satt";
-    die();
-}
+$type = $_GET['type']; // Databasen som ska hämtas från (a/s/k)
+$id = $_GET['id']; // Objektet som ska visas
 
-//Hämtar 'id'-värdet (vilket objekt i databasen som ska tas bort)
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
-}
-else {
-    echo "ERROR: 'id' är inte satt";
-    die();
-}
-
-// Bestämmer vilken databas som skall ändras
+// Bestämmer vilken databas som ska hämtas från
 if($type == "a") {
     $table = "anvandare";
 } elseif ($type == "s") {
@@ -31,9 +16,13 @@ if($type == "a") {
     die();
 }
 
-//DELETE FROM $table WHERE some_column = some_value
-$sql = "SELECT * FROM $table WHERE id = $id";
-$result = mysqli_query($conn,$sql);
+// Hämtar och skickar tillbaks datan
+$sql = "SELECT * FROM $table WHERE id = ?";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
