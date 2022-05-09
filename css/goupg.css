@@ -1,0 +1,49 @@
+*{
+    padding:0;
+    margin:0;
+}
+
+#container{
+    background-color:#686868;
+    width:100vw;
+    height:100vh;
+   
+}
+#main{
+    background-color:#bfbfbf;
+    width:70vw;
+    height:100vh;
+    margin-left:15vw;
+}
+#information{
+    margin-left:1vw;
+}
+
+.category{
+    position:relative;
+    margin-top:30px;
+    height:50px;
+    width:450px;
+    background:red;
+    line-height:50px;
+}
+
+.categorybox{
+    position:relative;
+    float:left;
+    width:200px;
+    height:50px;
+    margin-left:30px;
+}
+
+.categoryremove {
+    position:relative;
+    margin-left:20px;
+    float:left;
+}
+
+.categoryedit {
+    position:relative;
+    margin-left:20px;
+    float:left;
+}
