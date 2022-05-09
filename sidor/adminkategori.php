@@ -32,6 +32,12 @@ else{
     HEADER("Location:../sidor/inlogg.php");
 }
 
+$url = 'http://localhost:8080/gitHub/WERMZ/php/db_visa_alla.php?type=k';
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_URL, $url);
+$data = curl_exec($ch);
+$array = json_decode($data);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,36 +50,57 @@ else{
 </head>
 <body>
     <div id="container">
-            <div id="spel">
-                <a href="adminspel.php">Spel</a> 
-            </div>
-            <div id="anvandare">
-                <a href="adminanvandare.php">Användare</a>  
-            </div>
-            <div id="poang">
-                <a href="adminpoang.php">Poäng</a>
-            </div>
-            <div id="resultat">
-                <a href="adminresultat.php">Resultat</a>
-            </div>
-            <div id="admin">
-                <a href="adminsidan.php">Tillbaka till huvudsidan</a>
-            </div>   
+        <div id="spel">
+            <a href="adminspel.php">Spel</a> 
+        </div>
+        <div id="anvandare">
+            <a href="adminanvandare.php">Användare</a>  
+        </div>
+        <div id="poang">
+            <a href="adminpoang.php">Poäng</a>
+        </div>
+        <div id="resultat">
+            <a href="adminresultat.php">Resultat</a>
+        </div>
+        <div id="admin">
+            <a href="adminsidan.php">Tillbaka till huvudsidan</a>
+        </div>   
         <div id="main">
             <div id="array">
                 <?php
-                    $kategorier = ["action", "puzzle", "fps", "tps", "strategy", "rts", "rpg"]; 
-                    foreach($kategorier as $rad){
+                    foreach($array as $rad){
                         
                         echo "<div class = 'category'>";
-                        echo "<div class = 'categorybox'>".$rad."</div>"; 
-                        echo "<div class = 'categoryremove'>Ta bort</div>"; 
+                        echo "<div class = 'categorybox'>".$rad->namn."</div>"; 
+                        $href = '../php/db_tabort.php?type=k&id='.$rad->id;
+                        echo "<a href =".$href."><div class='categoryremove'>Ta bort</div></a>";
                         echo "<div class = 'categoryedit'>Redigera</div><br>"; 
                         echo "</div>";
                     }
                 ?>
+                <a href = "javascript:addCategory()"><div id='categoryadd'>Ny</div></a>
             </div>   
         </div>
     </div>
 </body>
+<script>
+function addCategory() {
+    document.getElementById("categoryadd").remove();
+
+    let form = document.createElement("form");
+
+    let input = document.createElement("input");
+    input.setAttribute("type","text");
+    input.setAttribute("name","namn");
+
+    let submit = document.createElement("input");
+    submit.setAttribute("type","submit");
+    submit.setAttribute("value","Lägg till");
+
+    document.getElementById("array").appendChild(form);
+    form.appendChild(input);
+    form.appendChild(submit);
+}
+
+</script>
 </html>

@@ -1,33 +1,50 @@
 <?php
 require_once('db.php');
 
-$type = $_GET['type']; // Databasen som skall ändras
-$id = $_GET['id']; // Objektet som ska tas bort
+//Hämtar 'type'-värdet (vilken databas som ska ändras)
+if(isset($_GET['type'])) {
+    $type = $_GET['type'];
+}
+else {
+    echo "ERROR: 'type' är inte satt";
+    die();
+}
+
+//Hämtar 'id'-värdet (vilket objekt i databasen som ska tas bort)
+if(isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
+else {
+    echo "ERROR: 'id' är inte satt";
+    die();
+}
 
 // Bestämmer vilken databas som skall ändras
 if($type == "a") {
     $table = "anvandare";
+    $location = "adminuser.php";
 } elseif ($type == "s") {
     $table = "spel";
+    $location = "adminspel.php";
 } elseif ($type == "k") {
     $table = "kategorier";
+    $location = "adminkategori.php";
 } else {
     echo "ERROR: 'type' har otillåtet värde (får enbart vara 'a', 's', eller 'k')";
     die();
 }
 
-// Tar bort från databasen
-$sql = "DELETE FROM $table WHERE id = ?";
+//DELETE FROM $table WHERE some_column = some_value
+$sql = "DELETE FROM $table WHERE id = $id";
+$result = mysqli_query($conn,$sql);
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
-$stmt->execute();
-
-if ($stmt->get_result() === TRUE) {
+if ($conn->query($sql) === TRUE) {
     echo "Objektet togs bort";
+    HEADER("Location:../sidor/".$location);
 } else {
-    echo "ERROR: Kunde inte ta bort objektet";
+    echo "ERROR: Kunde inte ta bort objektet - " . $conn->error;
 }
   
 $conn->close();
+
 ?>
