@@ -9,13 +9,10 @@
     }
     // Tar emot lösenord från inlogg
     if(isset($_SESSION['go_db_pass'])) {
-      $pass = $_SESSIOn['go_db_pass'];
+      $pass = $_SESSION['go_db_pass'];
     } else {
       $pass = "";
     }
- 
-    echo($user);
-    echo($pass);
 
     $sql="SELECT * FROM anvandare WHERE namn = '$user' AND losenord = '$pass'";
     $result = $conn->query($sql);
@@ -23,10 +20,9 @@
     // Inloggningsuppgifter är korrekta
     if ($result->num_rows > 0){
       $userdata = $result->fetch_assoc();
-      echo("Korrekta inloggningsuppgifter");
       // Om användare är admin redirecta till adminsidan.php
       if ($userdata["admin"] == 1){
-          HEADER("Location:inlogg.php");
+         HEADER("Location:inlogg.php");
       }
     }
     // Inloggningsuppgifter är felaktiga
@@ -34,6 +30,8 @@
       HEADER("Location:inlogg.php");
   }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,6 +65,15 @@
           }
         } else{
           echo "Inga spel finns";
+        }
+        $sql = "SELECT namn FROM anvandare";
+        if ($result->num_rows > 0){
+          //Använarnamn
+          while($row = $result->fetch_assoc()){
+            echo $row["namn"]. "<br>";
+          }
+        } else{
+          echo "Hittar inte namn". "<br>";
         }
           $conn->close();
         
