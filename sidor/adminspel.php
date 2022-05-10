@@ -32,12 +32,14 @@ else{
     HEADER("Location:../sidor/inlogg.php");
 }
 
-$url = 'http://localhost:8080/gitHub/WERMZ/php/db_visa_alla.php?type=k';
+$url = 'http://localhost:8080/gitHub/WERMZ/php/db_visa_alla.php?type=s';
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_URL, $url);
 $data = curl_exec($ch);
 $array = json_decode($data);
+print_r($array);
+exit;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +53,7 @@ $array = json_decode($data);
 <body>
     <div id="container">
         <div id="spel">
-            <a href="adminspel.php">Spel</a> 
+            <a href="adminkategori.php">Kategori</a> 
         </div>
         <div id="anvandare">
             <a href="adminanvandare.php">Användare</a>  
@@ -72,7 +74,7 @@ $array = json_decode($data);
                         
                         echo "<div class = 'category'>";
                         echo "<div class = 'categorybox'>".$rad->namn."</div>"; 
-                        $href = '../php/db_tabort.php?type=k&id='.$rad->id;
+                        $href = '../php/db_tabort.php?type=s&id='.$rad->id;
                         echo "<a href =".$href."><div class='categoryremove'>Ta bort</div></a>";
                         echo "<div class = 'categoryedit'>Redigera</div><br>"; 
                         echo "</div>";
@@ -89,7 +91,7 @@ function addCategory() {
 
     let form = document.createElement("form");
     form.setAttribute("method","POST");
-    form.setAttribute("action","../php/db_add_kategori.php");
+    form.setAttribute("action","../php/db_add_spel.php");
 
     let input = document.createElement("input");
     input.setAttribute("type","text");
