@@ -22,7 +22,7 @@ else {
 // Bestämmer vilken databas som skall ändras
 if($type == "a") {
     $table = "anvandare";
-    $location = "adminuser.php";
+    $location = "adminanvandare.php";
 } elseif ($type == "s") {
     $table = "spel";
     $location = "adminspel.php";

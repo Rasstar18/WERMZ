@@ -32,13 +32,21 @@ else{
     HEADER("Location:../sidor/inlogg.php");
 }
 
-$url = 'http://localhost:8080/webbutveckling/github/WERMZ/php/db_visa_alla.php?type=k';
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_URL, $url);
-$data = curl_exec($ch);
-$array = json_decode($data);
+$url1 = 'http://localhost:8080/webbutveckling/github/WERMZ/php/db_visa_alla.php?type=a';
+$ch1 = curl_init();
+curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch1, CURLOPT_URL, $url1);
+$userData = curl_exec($ch1);
+$array = json_decode($userData);
+
+$url2 = 'http://localhost:8080/webbutveckling/github/WERMZ/php/db_visa_alla.php?type=k';
+$ch2 = curl_init();
+curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch2, CURLOPT_URL, $url2);
+$categoryData = curl_exec($ch2);
+$categoryArray = json_decode($categoryData);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,39 +77,76 @@ $array = json_decode($data);
             <div id="array">
                 <?php
                     foreach($array as $rad){
+
+                        if($rad->namn == "admin") {
+                            echo "<div class = 'category'>";
+                            echo "<div class = 'categorybox'>".$rad->namn."</div>"; 
+                            echo "<p>Ej redigerbar</p>";
+                            echo "</div>";
+                            continue;
+                        }
                         
                         echo "<div class = 'category'>";
                         echo "<div class = 'categorybox'>".$rad->namn."</div>"; 
-                        $href = '../php/db_tabort.php?type=k&id='.$rad->id;
+                        $href = '../php/db_tabort.php?type=a&id='.$rad->id;
                         echo "<a href =".$href."><div class='categoryremove'>TB</div></a>";
                         echo "<div class = 'categoryedit'>R</div><br>"; 
                         echo "</div>";
                     }
                 ?>
-                <a href = "javascript:addCategory()"><div id='categoryadd'>Ny</div></a>
+                <a href = "javascript:addUser()"><div id='categoryadd'>Ny</div></a>
             </div>   
         </div>
     </div>
 </body>
 <script>
-function addCategory() {
+function lineBreak(e) {
+    e.appendChild(document.createElement("br"));
+}
+
+function addUser() {
+    var categories = JSON.parse('<?php echo(json_encode($categoryArray));?>');
+
     document.getElementById("categoryadd").remove();
 
     let form = document.createElement("form");
     form.setAttribute("action","GET");
-    form.setAttribute("action","../php/db_add_kategori.php");
+    form.setAttribute("action","../php/db_add_anvandare.php");
 
-    let input = document.createElement("input");
-    input.setAttribute("type","text");
-    input.setAttribute("name","name");
-    input.setAttribute("placeholder","namn");
+    let nameInput = document.createElement("input");
+    nameInput.setAttribute("type","text");
+    nameInput.setAttribute("name","name");
+    nameInput.setAttribute("placeholder","namn");
+
+    let passInput = document.createElement("input");
+    passInput.setAttribute("type","text");
+    passInput.setAttribute("name","pass");
+    passInput.setAttribute("placeholder","lösenord");
+
+    form.appendChild(nameInput);
+    lineBreak(form);
+    form.appendChild(passInput);
+
+    checkboxes = {};
+    for(i=0;i<categories.length;i++) {
+        c = categories[i];
+        checkboxes[c.namn] = document.createElement("input");
+        checkboxes[c.namn].setAttribute("type","checkbox");
+        checkboxes[c.namn].setAttribute("name",c.id);
+        lineBreak(form);
+        let label = document.createElement("label");
+        label.innerHTML = c.namn;
+        
+        form.appendChild(checkboxes[c.namn]);
+        form.appendChild(label);
+    }
 
     let submit = document.createElement("input");
     submit.setAttribute("type","submit");
     submit.setAttribute("value","Lägg till");
 
     document.getElementById("array").appendChild(form);
-    form.appendChild(input);
+    lineBreak(form);
     form.appendChild(submit);
 }
 

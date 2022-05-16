@@ -9,9 +9,5 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $name);
 $stmt->execute();
 
-if ($stmt->get_result() === TRUE) {
-    echo "Kategori har lagts till";
-} else {
-    echo "ERROR";
-}
+HEADER("Location:../sidor/adminkategori.php");
 ?>

@@ -10,9 +10,5 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("ss", $name, $pass);
 $stmt->execute();
 
-if ($conn->query($sql) === TRUE) {
-    echo "Användare har lagts till";
-} else {
-    echo "ERROR";
-}
+HEADER("Location:../sidor/adminanvandare.php");
 ?>
