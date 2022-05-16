@@ -39,45 +39,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/goupg.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
     <title>User</title>
 </head>
 <body>
+  <div class="header">
+    <h1>Game On</h1>
+  </div>
   <div id="container">
+    <img id="profilbild" src="../img/avatar.png" alt="profilbild">
     <div id="main">
-      <div id="information">
-        <?php 
-        $sql = "SELECT * FROM kategorier";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            //Visar kategorier
-            while($row = $result->fetch_assoc()) {
-              echo "Kategori: " . $row["namn"]. "<br>";
+      <article id="information">
+        <p id="kategorier">
+          <?php 
+          $sql = "SELECT * FROM kategorier";
+          $result = $conn->query($sql);
+          if ($result->num_rows > 0) {
+              //Visar kategorier
+              while($row = $result->fetch_assoc()) {
+                echo "Kategori: " . $row["namn"]. "<br>";
+              }
+            } else {
+              echo "Inga kategorier har blivit kopplade";
             }
-          } else {
-            echo "Inga kategorier har blivit kopplade";
+          ?>
+        </p>
+
+        <p id="spel">
+          <?php
+          $sql = "SELECT * FROM spel";
+          $result = $conn->query($sql);
+          if ($result->num_rows > 0){
+            //Visar alla spel
+            while($row = $result->fetch_assoc()){
+              echo $row["namn"]. "<br>";
+            }
+          } else{
+            echo "Inga spel finns". "<br>";
           }
-        $sql = "SELECT * FROM spel";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0){
-          //Visar alla spel
-          while($row = $result->fetch_assoc()){
-            echo $row["namn"]. "<br>";
+          ?>
+        </p>
+
+        <p id="anvandarnamn">
+          <?php
+          $sql = "SELECT namn FROM anvandare";
+          if ($result->num_rows > 0){
+            //Använarnamn
+            while($row = $result->fetch_assoc()){
+              echo $row["namn"]. "<br>";
+            }
+          } else{
+            echo "Hittar inte namn". "<br>";
           }
-        } else{
-          echo "Inga spel finns";
-        }
-        $sql = "SELECT namn FROM anvandare";
-        if ($result->num_rows > 0){
-          //Använarnamn
-          while($row = $result->fetch_assoc()){
-            echo $row["namn"]. "<br>";
-          }
-        } else{
-          echo "Hittar inte namn". "<br>";
-        }
-          $conn->close();
-        
-        ?>
+            $conn->close();
+          
+          ?>
+        </p>
         <?php
         //For loop som skapar radio buttons för en kategori,
           $knapp = 1;
@@ -89,7 +111,7 @@
               ?>
               <form id="rating">
                 <input type="radio" id="spelbarhet1" name="spelbarhet" value=1>
-                <label for="spelbarhet"><?php echo $knapp++ ?></label><br>
+                <label for="spelbarhet"><?php echo $knapp++ ?></label>
               <?php
             }
           ?>
@@ -97,7 +119,7 @@
         <?php
         }
         ?>
-      </div>
+      </article>
     </div>
   </div>
     

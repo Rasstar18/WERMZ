@@ -1,21 +1,36 @@
 *{
     padding:0;
     margin:0;
+    overflow: hidden;
+}
+.header {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: larger;
+    line-height: 12vh;
+    color:white;
+    height:12vh;
+    text-align: center;
+    vertical-align: middle;
+    background-image: linear-gradient(to right, #5c0b98, #ce499b   );
 }
 
+
 #container{
-    background-color:#686868;
+    background-color:#5c0b98;
     width:100vw;
     height:100vh;
    
 }
 #main{
-    background-color:#bfbfbf;
-    width:70vw;
+    background-color:white;
+    width:80vw;
     height:100vh;
-    margin-left:15vw;
+    margin-left:20vw;
+    float: left;
 }
 #information{
+    font-family: 'Montserrat', sans-serif;
+    color:black;
     margin-left:1vw;
 }
 
@@ -47,4 +62,13 @@
     line-height:40px;
     border-radius:20px;
     background-color:red;
+    float:left;
+}
+
+#profilbild{
+    margin-top: 1vh;
+    margin-left: 1vw;
+    height: 55px;
+    width:auto;
+    position: absolute;
 }
